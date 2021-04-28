@@ -34,8 +34,6 @@ const ProgramTable = ({
     setProgramList(programs);
   }, [programList, getAllProgramsAction]);
 
-  console.log('program', programs);
-
   const isEditing = record => record.key === editingKey;
 
   const edit = record => {
@@ -95,12 +93,13 @@ const ProgramTable = ({
           <Form form={form} component={false}>
             <td>
               <Form.Item
-                name={record.dataIndex}
+                name="name"
+                defaultValue=""
                 style={{ margin: 0 }}
                 rules={[
                   {
                     required: true,
-                    message: `Please Input ${record.title}!`,
+                    message: `Please Input name`,
                   },
                 ]}
               >
@@ -124,12 +123,12 @@ const ProgramTable = ({
           <Form form={form} component={false}>
             <td>
               <Form.Item
-                name={record.dataIndex}
+                name="type"
                 style={{ margin: 0 }}
                 rules={[
                   {
                     required: true,
-                    message: `Please Input ${record.title}!`,
+                    message: `Please Input type!`,
                   },
                 ]}
               >
@@ -153,12 +152,12 @@ const ProgramTable = ({
           <Form form={form} component={false}>
             <td>
               <Form.Item
-                name={record.dataIndex}
+                name="description"
                 style={{ margin: 0 }}
                 rules={[
                   {
                     required: true,
-                    message: `Please Input ${record.title}!`,
+                    message: `Please Input description!`,
                   },
                 ]}
               >
@@ -235,7 +234,7 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     programs: state.program.programs,
-    refetched: state.program.refetched,
+    // refetched: state.program.refetched,
   };
 };
 

@@ -5,7 +5,7 @@ import { TabletHeader } from '../../common/index';
 import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 import './profile.css';
 import { connect } from 'react-redux';
-import { updateUserAction } from '../../../state/actions';
+import { getUserAction, updateUserAction } from '../../../state/actions';
 import TitleComponent from '../../common/Title';
 
 const initialFormValues = {
@@ -14,7 +14,12 @@ const initialFormValues = {
   avatarUrl: '',
 };
 
-function MyProfileContainer({ LoadingOutlined, updateUserAction }) {
+function MyProfileContainer({
+  LoadingOutlined,
+  getUserAction,
+  updateUserAction,
+  user,
+}) {
   const { authState, authService } = useOktaAuth();
   const [userId, setUserId] = useState(false);
   const [curUser, setCurUser] = useState(false);
@@ -38,6 +43,8 @@ function MyProfileContainer({ LoadingOutlined, updateUserAction }) {
         // isSubscribed is a boolean toggle that we're using to clean up our useEffect.
         if (isSubscribed) {
           setUserId(info.sub);
+          getUserAction(userId);
+          console.log('userID', userId);
         }
       })
       .catch(err => {
@@ -46,6 +53,11 @@ function MyProfileContainer({ LoadingOutlined, updateUserAction }) {
       });
     return () => (isSubscribed = false);
   }, [memoAuthService]);
+
+  // useEffect(() => {
+  //   getUserAction(userId);
+  //   console.log('user', user);
+  // }, []);
 
   //brings in user data from back-end
   useEffect(() => {
@@ -56,7 +68,7 @@ function MyProfileContainer({ LoadingOutlined, updateUserAction }) {
         localStorage.setItem('role', res.data.role);
       })
       .catch(err => {
-        console.log(err);
+        console.log('error from axios call', err);
       });
   }, [userId]);
 
@@ -143,12 +155,12 @@ function MyProfileContainer({ LoadingOutlined, updateUserAction }) {
 
 const mapStateToProps = state => {
   return {
-    firstName: state.firstName,
-    lastName: state.lastName,
-    role: state.role,
+    user: state.user.user,
   };
 };
 
-export default connect(null, { updateUserAction })(MyProfileContainer);
+export default connect(mapStateToProps, { updateUserAction, getUserAction })(
+  MyProfileContainer
+);
 
 // export default MyProfileContainer;

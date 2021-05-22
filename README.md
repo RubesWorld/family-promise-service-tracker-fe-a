@@ -1,6 +1,7 @@
-# Basic SPA
+# Lambda School Labs Project
 
-For steps on how to work with this repository [please see here](https://docs.labs.lambdaschool.com/labs-spa-starter/)
+This was a one-month project for Lamdba School, where we worked with a non-profit. The application was planned to be worked on by 3 separate Labs cohorts. This codebase is from my initial Labs cohort. We worked on the foundation for the application. The access to the AWS Server and Okta authorization was removed, but you can see a detailed write-up about the experience [here](https://rubesworld.medium.com/a-strong-foundation-for-a-non-profit-application-50f116b54b48).
+
 
 # Family Promise Service Tracker
 
